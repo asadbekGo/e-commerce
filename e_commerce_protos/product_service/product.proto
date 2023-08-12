@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package product_service;
+
+option go_package = "e_commerce_protos/product_service";
+
+// CRUD
+// Create
+// Read
+// Update
+// Delete
+
+service ProductService {
+    rpc Create(CreateProduct) returns (Product) {}
+    rpc GetByID(ProductPrimaryKey) returns (Product) {}
+    rpc GetList(GetListProductRequest) returns (GetListProductResponse) {}
+    rpc Update(Product) returns (Product) {}
+    rpc Delete(ProductPrimaryKey) returns (Empty) {}
+}
+
+message Empty {}
+
+message ProductPrimaryKey {
+    string id = 1;
+}
+
+message CreateProduct {
+    string name = 1;
+    string image = 2;
+    int64 price = 3;
+    string discount_type = 4;
+    int64 discount = 5;
+    string barcode = 6;
+}
+
+message Product {
+    string id = 1;
+    string name = 2;
+    string image = 3;
+    int64 price = 4;
+    string discount_type = 5;
+    int64 discount = 6;
+    string barcode = 7;
+}
+
+message GetListProductRequest {
+    int64 offset = 1;
+    int64 limit = 2;
+}
+
+message GetListProductResponse {
+    int64 count = 1;
+    repeated Product products = 2;
+}
+
